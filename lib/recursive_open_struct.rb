@@ -12,7 +12,7 @@ class RecursiveOpenStruct < OpenStruct
   def initialize(hash=nil, args={})
     hash ||= {}
     @recurse_over_arrays = args.fetch(:recurse_over_arrays, false)
-    @deep_dup = DeepDup.new(recurse_over_arrays: @recurse_over_arrays)
+    @deep_dup = DeepDup.new(:recurse_over_arrays => @recurse_over_arrays)
 
     @table = args.fetch(:mutate_input_hash, false) ? hash : @deep_dup.call(hash)
     @table && @table.each_key { |k| new_ostruct_member(k) }
